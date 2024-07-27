@@ -18,15 +18,14 @@ const Results: React.FC <ResultProps>= (props) => {
   return (
     <div className="flex flex-col w-10/12 lg:w-6/12 my-8 bg-slate-200 rounded">
       <div className="p-4 m-4 bg-white">
-
         <div>Required Packs :</div> 
-
         <div>
             {
               counts.map(function(count, packSize)  {
                 return <div>{count} x {packSize}</div>
               })
             }
+            <div className='pt-4 text-xs'>*If the result doesn't seem right, please refresh and try again. </div>
         </div>
       </div>
       
