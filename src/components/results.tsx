@@ -21,7 +21,7 @@ const Results: React.FC <ResultProps>= (props) => {
         <div>Required Packs :</div> 
         <div>
             {
-              counts.map(function(count, packSize)  {
+              counts.map((count, packSize) => {
                 return <div>{count} x {packSize}</div>
               })
             }
