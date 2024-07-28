@@ -9,7 +9,7 @@ const PacksCalculator: React.FC = () => {
     const [errorMessage, setErrorMessage] = useState("");
 
     const [packs, setPacks] = useState([ 250, 500, 1000, 2000, 5000 ]);
-    const [orderSize, setOrderSize] = useState (0)
+    const [orderSize, setOrderSize] = useState (null as number | null)
     const [isLoading, setLoading] = useState(false);
 
     const [disablePacks, setDisablePacks] = useState(false)
@@ -62,7 +62,7 @@ const PacksCalculator: React.FC = () => {
     const reset = () => {
         setPacks([ 250, 500, 1000, 2000, 5000 ]);
         setDisablePacks(false);
-        setOrderSize(0)
+        setOrderSize(null as number | null)
     }
 
     const handleError = () =>{
@@ -88,14 +88,14 @@ const PacksCalculator: React.FC = () => {
                     )}
                 </div>   
                 <div className="my-2">
-                    <Button onClick={addPack}>Add pack</Button>
+                    <Button onClick={addPack} disabled={disablePacks}>Add pack</Button>
                 </div>
             </div>
 
             <div className="flex flex-col w-10/12 lg:w-6/12 pt-4">
                 <div>Order size:</div> 
 
-                <Input className="w-50" value={orderSize} onChange={(e) => updateOrderSize(e.target.value)}/>
+                <Input className="w-50" value={orderSize ?? ""} onChange={(e) => updateOrderSize(e.target.value)}/>
             </div>
 
             <Button className="mt-8" onClick={calculatePacks} loading={isLoading}>Calculate Packs</Button>
