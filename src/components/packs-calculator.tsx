@@ -8,8 +8,10 @@ const PacksCalculator: React.FC = (props) => {
     const [hasError, setHasError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
-    const [packs, setPacks] = useState([ 0 ]);
+    const [packs, setPacks] = useState([ 0, 0 ]);
     const [isLoading, setLoading] = useState(false);
+
+    const [disablePacks, setDisablePacks] = useState(false)
 
     var orderSize = 0;
 
@@ -33,6 +35,7 @@ const PacksCalculator: React.FC = (props) => {
     const calculatePacks = () => {
         setResponse(null);
         setLoading(true);
+        setDisablePacks(true);
         const xhr = new XMLHttpRequest();
         const params = {
             "numberOfItems" : orderSize,
@@ -57,6 +60,11 @@ const PacksCalculator: React.FC = (props) => {
         xhr.send(JSON.stringify(params));
     };
 
+    const reset = () => {
+        setPacks([ 0, 0 ]);
+        setDisablePacks(false);
+    }
+
     const handleError = () =>{
         setLoading(false);
         setHasError(true);
@@ -71,9 +79,9 @@ const PacksCalculator: React.FC = (props) => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                     { packs.map(function(value, index) {
                         return ( <div className="grid grid-cols-3 px-3 bg-slate-200 py-2 rounded" key={value + "" + Math.floor(Math.random() * 90 + 10)}>
-                                <Input className="col-span-2" defaultValue={value} onChange={(e) => updatePacks(index, e.target.value)}/>
+                                <Input className="col-span-2" defaultValue={value} disabled={disablePacks} onChange={(e) => updatePacks(index, e.target.value)}/>
                                 
-                                <Button className="justify-self-end" disabled={!(packs.length > 1)} onClick={(e) => removePack(index)}> X</Button>
+                                <Button className="justify-self-end" disabled={(!(packs.length > 2)) || disablePacks} onClick={(e) => removePack(index)}> X</Button>
                             </div>
                         )
                         }
@@ -81,6 +89,7 @@ const PacksCalculator: React.FC = (props) => {
                 </div>   
                 <div className="my-2">
                     <Button onClick={addPack}>Add pack</Button>
+                    <Button className="ml-4" onClick={reset}>Reset</Button>
                 </div>
             </div>
 
