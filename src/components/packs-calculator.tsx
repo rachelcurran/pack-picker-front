@@ -8,7 +8,7 @@ const PacksCalculator: React.FC = () => {
     const [hasError, setHasError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
-    const [packs, setPacks] = useState([ 0, 0 ]);
+    const [packs, setPacks] = useState([ 250, 500, 1000, 2000, 5000 ]);
     const [orderSize, setOrderSize] = useState (0)
     const [isLoading, setLoading] = useState(false);
 
@@ -60,7 +60,7 @@ const PacksCalculator: React.FC = () => {
     };
 
     const reset = () => {
-        setPacks([ 0, 0 ]);
+        setPacks([ 250, 500, 1000, 2000, 5000 ]);
         setDisablePacks(false);
         setOrderSize(0)
     }
